@@ -1,0 +1,63 @@
+<p-dataTable [value]="bills" selectionMode="single" [(selection)]="selectedBill" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true" [tableStyle]="{'table-layout':'auto'}">
+  <p-header>Bills</p-header>
+    <p-column field="id" header="Bill id" [sortable]="true" styleClass="text-center"></p-column>
+    <p-column field="id_employee" header="Employee ID" [sortable]="true" styleClass="text-center"></p-column>
+    <p-column field="id_client" header="Client ID" [sortable]="true" styleClass="text-center"></p-column>
+    <p-column field="date" header="Bill Date" [sortable]="true" styleClass="text-center">
+      <ng-template pTemplate="body" let-row="rowData" styleClass="text-center">
+        {{row.date | date:'yyyy-MM-dd'}}
+      </ng-template>
+    </p-column>
+    <p-column field="amout" header="Amount" [sortable]="true" styleClass="text-center"></p-column>
+
+    <p-footer>
+      <div class="ui-helper-clearfix" style="width:100%">
+        <button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add">
+        </button>
+      </div>
+    </p-footer>
+
+  </p-dataTable>
+  
+  <p-dialog header="Bill Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="400">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedBill">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+          <label for="id_employee">Employee ID</label>
+        </div>
+        <div class="ui-grid-col-8">
+          <input pInputText id="id_employee" [(ngModel)]="selectedBill.id_employee" />
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+          <label for="id_client">Client ID</label>
+        </div>
+        <div class="ui-grid-col-8">
+          <input pInputText id="id_client" [(ngModel)]="selectedBill.id_client" />
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+          <label for="date">Date</label>
+        </div>
+        <div class="ui-grid-col-8">
+            <p-calendar inputId="date" name="date" [(ngModel)]="selectedBill.date" dateFormat="yy-mm-dd" appendTo="body"></p-calendar>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+          <label for="amout">Amount</label>
+        </div>
+        <div class="ui-grid-col-8">
+          <input pInputText id="amout" [(ngModel)]="selectedBill.amout" />
+        </div>
+      </div>
+    </div>
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+        <button type="button" pButton icon="fa-close" (click)="deleteBill()" label="Delete"></button>
+        <button type="button" pButton icon="fa-check" (click)="updateBill()" label="Save"></button>
+      </div>
+    </p-footer>
+</p-dialog>  

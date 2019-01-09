@@ -1,0 +1,93 @@
+<p-dataTable [value]="accomodations" selectionMode="single" [(selection)]="selectedAccomodation" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true" [tableStyle]="{'table-layout':'auto'}">
+  <p-header>Accomodations</p-header>
+  <p-column field="id" header="Accomodation id" [sortable]="true" styleClass="text-center"></p-column>
+  <p-column field="id_employee" header="Employee id (contains)" [filter]="true" filterMatchMode="contains" [sortable]="true" styleClass="text-center"></p-column>
+  <p-column field="id_bill" header="Bill id (contains)" [filter]="true" filterMatchMode="contains" [sortable]="true" styleClass="text-center"></p-column>
+  <p-column field="id_room" header="Room id (contains)" [filter]="true" filterMatchMode="contains" [sortable]="true" styleClass="text-center"></p-column>
+  <p-column field="arrivelDate" header="Arrival date" [sortable]="true" styleClass="text-center">
+    <ng-template pTemplate="body" let-row="rowData">
+      {{row.arrivelDate | date:'yyyy-MM-dd'}}
+    </ng-template>
+  </p-column>
+  <p-column field="nrNights" header="No of Nights" [sortable]="true" styleClass="text-center"></p-column>
+  <p-column field="nrAdults" header="No of Adults" [sortable]="true" styleClass="text-center"></p-column>
+  <p-column field="nrChildrens" header="No of Childrens" [sortable]="true" styleClass="text-center"></p-column>
+  <ng-template pTemplate="emptymessage">
+     No Data
+  </ng-template>
+  
+  <p-footer>
+    <div class="ui-helper-clearfix" style="width:100%">
+      <button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add">
+      </button>
+    </div>
+  </p-footer>
+
+</p-dataTable>
+
+<p-dialog header="Accomodation Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="400">
+  <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="selectedAccomodation">
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4">
+        <label for="id_employee">Employee ID</label>
+      </div>
+      <div class="ui-grid-col-8">
+        <input pInputText id="id_employee" [(ngModel)]="selectedAccomodation.id_employee" />
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4">
+        <label for="id_bill">Bill ID</label>
+      </div>
+      <div class="ui-grid-col-8">
+        <input pInputText id="id_bill" [(ngModel)]="selectedAccomodation.id_bill" />
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4">
+        <label for="id_room">Room ID</label>
+      </div>
+      <div class="ui-grid-col-8">
+        <input pInputText id="id_room" [(ngModel)]="selectedAccomodation.id_room" />
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4">
+        <label for="arrivelDate">Arrival Date</label>
+      </div>
+      <div class="ui-grid-col-8">
+          <p-calendar inputId="arrivelDate" name="arrivelDate" [(ngModel)]="selectedAccomodation.arrivelDate" dateFormat="yy-mm-dd" appendTo="body"></p-calendar>
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4">
+        <label for="nrNights">No of Nights</label>
+      </div>
+      <div class="ui-grid-col-8">
+        <input pInputText id="nrNights" [(ngModel)]="selectedAccomodation.nrNights" />
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4">
+        <label for="nrAdults">No of Adults</label>
+      </div>
+      <div class="ui-grid-col-8">
+        <input pInputText id="nrAdults" [(ngModel)]="selectedAccomodation.nrAdults" />
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4">
+        <label for="nrChildrens">No of Childrens</label>
+      </div>
+      <div class="ui-grid-col-8">
+        <input pInputText id="nrChildrens" [(ngModel)]="selectedAccomodation.nrChildrens" />
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa-close" (click)="deleteAccomodation()" label="Delete"></button>
+      <button type="button" pButton icon="fa-check" (click)="updateAccomodation()" label="Save"></button>
+    </div>
+  </p-footer>
+</p-dialog>

@@ -1,0 +1,41 @@
+<div class="ui top fixed menu inverted large" *ngIf="hideMenu()">
+  <a class="item" (click)="sidebar.toggle()">
+    <i class="sidebar icon"></i> Menu
+  </a>
+  <div class="menu right">
+    <a class="item" (click)="logout()">
+      Logout {{currentUser.userName}} 
+    </a>
+  </div>
+</div>
+<sui-sidebar-container class="ui bottom attached segment">
+  <sui-sidebar class="inverted vertical" #sidebar>
+    <a class="item" href="/home">Home</a>
+    <a class="item" href="/rooms">Rooms</a>
+    <a class="item" href="/employees" *ngIf="currentUser.userName === 'admin1' || currentUser.userName === 'admin2' ">Employees</a>  
+    <a class="item" href="/departments" *ngIf="currentUser.userName === 'admin1' || currentUser.userName === 'admin2'">Departments</a>
+    <a class="item" href="/clients">Clients</a>
+    <a class="item" href="/bills">Bills</a>
+    <a class="item" href="/accomodations">Accomodations</a>
+    <a class="item" href="/reservations">Reservations</a>
+  </sui-sidebar>
+  <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+    <div class="container margin-top-xs">
+      <div class="row">
+        <div class="col-md-12">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+    
+    <hr />
+
+    <footer class="margin-bottom-sm">
+      <div class="container">
+        <p>
+          <a href="/home">Hotel Monica</a>
+        </p>    
+      </div>
+    </footer>
+  </sui-sidebar-sibling>
+</sui-sidebar-container>
