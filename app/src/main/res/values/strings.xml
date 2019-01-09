@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Hotel App</string>
+    <string name="department_list">DepartmentList</string>
+    <string name="title_activity_login_success">LoginSuccess</string>
+
+</resources>
+
